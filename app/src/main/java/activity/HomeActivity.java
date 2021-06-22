@@ -1,0 +1,51 @@
+package activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
+import android.os.Bundle;
+import android.widget.ImageButton;
+
+import com.example.menumito.R;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
+import adapter.TabHomeAdapter;
+import fragment.GalleryMenuFragment;
+import fragment.MainMenuFragment;
+
+public class HomeActivity extends AppCompatActivity {
+
+    private ImageButton btn_logout;
+    private TabHomeAdapter tabHomeAdapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        viewPager = findViewById(R.id.view_pager_home);
+        tabLayout = findViewById(R.id.tab_layout_home);
+        btn_logout = findViewById(R.id.btn_logout);
+
+        /* tab icons */
+        int[] tabIcons = {
+                R.drawable.ic_baseline_view_list_24, //icon tab for main menu
+                R.drawable.ic_baseline_fastfood_24}; // icon tab for image mode
+
+        /* add fragment to tab adapter */
+        tabHomeAdapter = new TabHomeAdapter(getSupportFragmentManager());
+        tabHomeAdapter.addFragment(new MainMenuFragment(), null);
+        tabHomeAdapter.addFragment(new GalleryMenuFragment(), null);
+
+        viewPager.setAdapter(tabHomeAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        /* set icon tab layout */
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+    }
+}

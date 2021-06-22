@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Menu Mito</string>
+    <string name="logo_prompt">Logo</string>
+    <string name="text_desc_app">Lorem ipsum dolor sit amet.</string>
+    <string name="fill_email_prompt">Masukkan Emailmu</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="fill_password_prompt">Masukkan Passwordmu</string>
+    <string name="login_prompt">Login</string>
+    <string name="empty_field">This field cannot empty</string>
+</resources>
