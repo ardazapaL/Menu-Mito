@@ -1,4 +1,4 @@
-package adapter;
+package com.example.menumito.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,7 @@ import com.example.menumito.R;
 
 import java.util.ArrayList;
 
-import model.MainMenuModel;
+import com.example.menumito.model.MainMenuModel;
 
 public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMenuViewHolder> {
 

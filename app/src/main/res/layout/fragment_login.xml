@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingHorizontal="25dp">
+    android:paddingHorizontal="25dp"
+    android:fitsSystemWindows="true">
 
     <!-- Email Label -->
     <com.google.android.material.textfield.TextInputLayout

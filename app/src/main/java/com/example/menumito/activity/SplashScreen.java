@@ -1,4 +1,4 @@
-package activity;
+package com.example.menumito.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package fragment;
+package com.example.menumito.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.menumito.R;
 
-public class GalleryMenuFragment extends Fragment {
+public class GuestEntryFragment extends Fragment {
 
     @Nullable
     @Override

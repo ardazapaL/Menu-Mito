@@ -1,4 +1,4 @@
-package fragment;
+    package com.example.menumito.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,8 +15,8 @@ import com.example.menumito.R;
 
 import java.util.ArrayList;
 
-import adapter.MainMenuAdapter;
-import model.MainMenuModel;
+import com.example.menumito.adapter.MainMenuAdapter;
+import com.example.menumito.model.MainMenuModel;
 
 public class MainMenuFragment extends Fragment {
 

@@ -1,7 +1,6 @@
-package adapter;
+package com.example.menumito.adapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -9,25 +8,28 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLoginAdapter extends FragmentStatePagerAdapter {
+public class TabHomeAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentTitleList = new ArrayList<>();
 
-    public TabLoginAdapter(@NonNull FragmentManager fm) {
-        super(fm);
+    public TabHomeAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+    }
+
+    public TabHomeAdapter(FragmentManager supportFragmentManager) {
+        super(supportFragmentManager);
     }
 
     public void addFragment(Fragment fragment, String title) {
-
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
     }
 
-    @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        //return fragmentTitleList.get(position);
+        return null;
     }
 
     @NonNull
@@ -41,3 +43,4 @@ public class TabLoginAdapter extends FragmentStatePagerAdapter {
         return fragmentList.size();
     }
 }
+

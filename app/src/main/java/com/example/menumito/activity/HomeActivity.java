@@ -1,4 +1,4 @@
-package activity;
+package com.example.menumito.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -9,11 +9,9 @@ import android.widget.ImageButton;
 import com.example.menumito.R;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
-import adapter.TabHomeAdapter;
-import fragment.GalleryMenuFragment;
-import fragment.MainMenuFragment;
+import com.example.menumito.adapter.TabHomeAdapter;
+import com.example.menumito.fragment.GalleryMenuFragment;
+import com.example.menumito.fragment.MainMenuFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -36,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
                 R.drawable.ic_baseline_view_list_24, //icon tab for main menu
                 R.drawable.ic_baseline_fastfood_24}; // icon tab for image mode
 
-        /* add fragment to tab adapter */
+        /* add com.example.menumito.fragment to tab com.example.menumito.adapter */
         tabHomeAdapter = new TabHomeAdapter(getSupportFragmentManager());
         tabHomeAdapter.addFragment(new MainMenuFragment(), null);
         tabHomeAdapter.addFragment(new GalleryMenuFragment(), null);

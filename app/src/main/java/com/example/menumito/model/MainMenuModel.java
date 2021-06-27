@@ -1,6 +1,4 @@
-package model;
-
-import android.graphics.Bitmap;
+package com.example.menumito.model;
 
 public class MainMenuModel {
 

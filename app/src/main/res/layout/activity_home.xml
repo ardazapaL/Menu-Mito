@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/padding_horizontal_layout"
     android:paddingVertical="@dimen/padding_vertical_layout"
-    tools:context="activity.HomeActivity">
+    tools:context="com.example.menumito.activity.HomeActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_home"
