@@ -20,26 +20,31 @@ import com.example.menumito.model.MainMenuModel;
 
 public class MainMenuFragment extends Fragment {
 
-    private ArrayList<MainMenuModel> listMain;
+    private ArrayList<MainMenuModel> mainMenuModels;
     private RecyclerView recyclerView;
     private MainMenuAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guest_entry, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
-        /* initialize */
         recyclerView = view.findViewById(R.id.recyclerView_home);
 
-        /* recycler view */
-        adapter = new MainMenuAdapter(listMain);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        addDataSample();
+        /* RECYCLERVIEW */
+        adapter = new MainMenuAdapter(mainMenuModels);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        listMain.add(new MainMenuModel(R.drawable.ic_baseline_fastfood_24, "tes1"));
-        listMain.add(new MainMenuModel(R.drawable.ic_baseline_fastfood_24, "tes2"));
         return view;
+    }
+
+    private void addDataSample() {
+        mainMenuModels = new ArrayList<>();
+        mainMenuModels.add(new MainMenuModel(R.drawable.ic_baseline_fastfood_24, "Makanan 1"));
+        mainMenuModels.add(new MainMenuModel(R.drawable.ic_baseline_fastfood_24, "Makanan 2"));
+        mainMenuModels.add(new MainMenuModel(R.drawable.ic_baseline_fastfood_24, "Makanan 3"));
     }
 }

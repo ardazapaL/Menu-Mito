@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MenuMito">
-        <activity android:name=".activity.SendNotif"></activity>
+        <activity android:name=".activity.VerifyActivity"></activity>
+        <activity android:name=".activity.SendNotif" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.SplashScreen">

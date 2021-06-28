@@ -12,22 +12,23 @@ import java.util.List;
 public class TabLoginAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
-    private final List<String> fragmentTitleList = new ArrayList<>();
+
+    // TAB TITLES
+    private String[] pageTitles = new String[]{"Login", "Temp"};
 
     public TabLoginAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment) {
 
         fragmentList.add(fragment);
-        fragmentTitleList.add(title);
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        return pageTitles[position];
     }
 
     @NonNull

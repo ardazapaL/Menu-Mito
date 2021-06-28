@@ -116,18 +116,6 @@ public class SendNotif extends AppCompatActivity {
                         }
                     }
                 });
-                /*FirebaseDatabase.getInstance().getReference().child("Tokens").child(UserTB.getText().toString().trim()).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String usertoken = dataSnapshot.getValue(String.class);
-                        sendNotifications(usertoken, Title.getText().toString().trim(),Message.getText().toString().trim());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
             }
         });
         UpdateToken();
@@ -152,13 +140,12 @@ public class SendNotif extends AppCompatActivity {
                         }
                     }
                 });
-//        FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
     }
 
-    public void sendNotifications(String usertoken, String title, String message) {
+    public void sendNotifications(String userToken, String title, String message) {
 
         Data data = new Data(title, message);
-        NotificationSender sender = new NotificationSender(data, usertoken);
+        NotificationSender sender = new NotificationSender(data, userToken);
         apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
             @Override
             public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {

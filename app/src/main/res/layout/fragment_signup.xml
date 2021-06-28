@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingHorizontal="25dp"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:paddingHorizontal="25dp">
 
     <!-- Email Label -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_email"
+        android:id="@+id/layout_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_horizontal_login"
@@ -22,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_email"
+            android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -34,7 +33,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password Label -->
-    <!--<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +44,7 @@
         app:boxBackgroundMode="filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_email">
+        app:layout_constraintTop_toBottomOf="@+id/layout_phone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_password"
@@ -57,22 +56,38 @@
             android:inputType="text"
             android:textSize="15sp"
             android:textStyle="normal"/>
-    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
-        android:layout_width="120dp"
+        android:id="@+id/btn_signup"
+        android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
         android:background="@drawable/shape_round"
         android:elevation="10dp"
-        android:text="@string/login_prompt"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+        android:text="@string/verify_prompt"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/layout_email"
-        app:layout_constraintStart_toStartOf="@+id/layout_email"
-        app:layout_constraintTop_toBottomOf="@+id/layout_email"/>
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/layout_phone"
+        app:layout_constraintStart_toStartOf="@+id/layout_phone"
+        app:layout_constraintTop_toBottomOf="@+id/layout_pass" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_submit"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_round"
+        android:elevation="10dp"
+        android:text="Submit"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/layout_phone"
+        app:layout_constraintStart_toStartOf="@+id/layout_phone"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

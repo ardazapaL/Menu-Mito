@@ -31,7 +31,7 @@
         android:layout_height="@dimen/image_btn"
         android:background="@drawable/shape_round"
         android:paddingRight="2dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintBottom_toBottomOf="@+id/tab_layout_home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tab_layout_home" />

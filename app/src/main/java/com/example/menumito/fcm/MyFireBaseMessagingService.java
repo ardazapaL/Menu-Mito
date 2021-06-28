@@ -15,8 +15,8 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        title=remoteMessage.getData().get("Title");
-        message=remoteMessage.getData().get("Message");
+        title = remoteMessage.getData().get("Title");
+        message = remoteMessage.getData().get("Message");
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(getApplicationContext())
@@ -26,5 +26,4 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
     }
-
 }

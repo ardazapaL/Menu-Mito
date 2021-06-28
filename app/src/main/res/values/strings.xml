@@ -9,4 +9,11 @@
     <string name="login_prompt">Login</string>
     <string name="empty_field">This field cannot empty</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fill_phone_prompt">Masukkan Nomor Handphone</string>
+    <string name="phone_prompt">Phone Number</string>
+    <string name="code_verif_prompt">Code Verification</string>
+    <string name="fill_code_prompt">Masukkan kode verifikasi</string>
+    <string name="get_code_prompt">Get Code</string>
+    <string name="verify_prompt">Verify Now</string>
+    <string name="resend_code_prompt">Resend Code</string>
 </resources>

@@ -8,9 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
@@ -19,9 +17,10 @@ import java.util.Map;
 
 public class MyFirebaseIdService extends FirebaseMessagingService {
 
+    private static final String TAG = "MyFirebaseIdService";
+
     @Override
-    public void onNewToken(String s)
-    {
+    public void onNewToken(String s) {
         super.onNewToken(s);
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -30,7 +29,7 @@ public class MyFirebaseIdService extends FirebaseMessagingService {
                 if (task.isSuccessful()) {
 
                     String refreshToken = task.getResult();
-                    Log.i("token ---->>", refreshToken);
+                    Log.i("Token ==> ", refreshToken);
 
                     if (firebaseUser != null){
 
@@ -51,6 +50,8 @@ public class MyFirebaseIdService extends FirebaseMessagingService {
         newToken.put("token", token1);
 
         db.collection("user").document(firebaseUser.getUid())
-                .set(newToken);
+                .set(newToken).addOnCompleteListener(task -> {
+                    Log.i(TAG, "Success updated token");
+                });
     }
 }

@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.menumito.R;
+import com.example.menumito.fragment.SignupFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import com.example.menumito.adapter.TabLoginAdapter;
-import com.example.menumito.fragment.GuestEntryFragment;
 import com.example.menumito.fragment.LoginFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,10 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        /* set tab com.example.menumito.adapter of viewpager */
+        /* INITIALIZE VIEW PAGER */
         TabLoginAdapter tabAdapter = new TabLoginAdapter(getSupportFragmentManager());
-        tabAdapter.addFragment(new LoginFragment(), "Login");
-        tabAdapter.addFragment(new GuestEntryFragment(), "Entry");
+        tabAdapter.addFragment(new SignupFragment());
+        tabAdapter.addFragment(new LoginFragment());
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -48,15 +48,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser user = auth.getCurrentUser();
-        if (user != null){
+        if (user != null){ // CHECK IF USER ALREADY LOGGED IN
 
-            /* intent login */
-            Intent goLogin = new Intent(this, SendNotif.class);
+            /* INTENT LOGIN */
+            Intent goLogin = new Intent(this, HomeActivity.class);
             goLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            Log.d(LOG, user.getUid() +
-                    " | " + user.getEmail());
+            Log.i(LOG, "UID User ==> " + user.getUid());
+            Log.i(LOG, "PHONE User ==> " + user.getPhoneNumber());
+
             startActivity(goLogin);
         }
     }

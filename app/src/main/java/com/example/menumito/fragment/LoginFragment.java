@@ -17,6 +17,7 @@ import com.example.menumito.R;
 
 import com.example.menumito.activity.HomeActivity;
 import com.example.menumito.activity.SendNotif;
+import com.example.menumito.activity.VerifyActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +28,7 @@ public class LoginFragment extends Fragment {
 
     private EditText editTextEmail, editTextPass;
     private Button btnLogin;
-    private Intent goLogin;
+    private Intent goLogin, goVerify;
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -45,7 +46,7 @@ public class LoginFragment extends Fragment {
 
         /* variable */
         editTextEmail = view.findViewById(R.id.input_email);
-        editTextPass = view.findViewById(R.id.input_password);
+        //editTextPass = view.findViewById(R.id.input_password);
         btnLogin = view.findViewById(R.id.btn_login);
 
         /* intent login */
@@ -53,11 +54,14 @@ public class LoginFragment extends Fragment {
         goLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+        /* intent verify */
+        goVerify = new Intent(getActivity(), VerifyActivity.class);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Login();
+                startActivity(goVerify);
             }
         });
         return view;
@@ -79,8 +83,8 @@ public class LoginFragment extends Fragment {
             editTextPass.setError(getString(R.string.empty_field));
             return;
         }
-
-        auth.signInWithEmailAndPassword(email.trim(), password.trim())
+        /* firebase sign in with email and password */
+        /*auth.signInWithEmailAndPassword(email.trim(), password.trim())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -88,6 +92,6 @@ public class LoginFragment extends Fragment {
                         startActivity(goLogin);
                         Log.d("LoginFragment", user.getUid());
                     }
-                });
+                });*/
     }
 }
