@@ -2,27 +2,38 @@ package com.example.menumito.model;
 
 public class MainMenuModel {
 
-    private int img_food;
-    private String name_food;
+    private String name;
+    private String url;
+    private double priority;
 
-    public MainMenuModel(int img_food, String name_food) {
-        this.img_food = img_food;
-        this.name_food = name_food;
+    public MainMenuModel(String name, String url, double priority){
+        // EMPTY CONSTRUCTOR
+        this.name = name;
+        this.url = url;
+        this.priority = priority;
     }
 
-    public int getImg_food() {
-        return img_food;
+    public String getName() {
+        return name;
     }
 
-    public void setImg_food(int img_food) {
-        this.img_food = img_food;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getName_food() {
-        return name_food;
+    public String getUrl() {
+        return url;
     }
 
-    public void setName_food(String name_food) {
-        this.name_food = name_food;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getPriority() {
+        return priority;
+    }
+
+    public void setPriority(double priority) {
+        this.priority = priority;
     }
 }

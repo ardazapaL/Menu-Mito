@@ -35,9 +35,9 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
 
     @Override
     public void onBindViewHolder(@NonNull MainMenuAdapter.MainMenuViewHolder holder, int position) {
-        holder.img_food.setImageResource(mainMenuModelArrayList.get(position).getImg_food());
-        holder.name_food.setText(mainMenuModelArrayList.get(position).getName_food());
-
+        holder.img_food.setText(mainMenuModelArrayList.get(position).getUrl());
+        holder.name_food.setText(mainMenuModelArrayList.get(position).getName());
+        holder.priority_food.setText(String.valueOf(mainMenuModelArrayList.get(position).getPriority()));
     }
 
     @Override
@@ -46,12 +46,14 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MainMe
     public class MainMenuViewHolder extends RecyclerView.ViewHolder {
 
         private TextView name_food;
-        private ImageView img_food;
+        private TextView img_food;
+        private TextView priority_food;
 
         public MainMenuViewHolder(@NonNull View itemView) {
             super(itemView);
             name_food = itemView.findViewById(R.id.txt_food_home);
             img_food = itemView.findViewById(R.id.img_food_home);
+            priority_food = itemView.findViewById(R.id.txt_priority);
         }
     }
 }

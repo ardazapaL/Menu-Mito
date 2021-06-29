@@ -16,19 +16,25 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <ImageView
+        <TextView
             android:id="@+id/img_food_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/margin_inside_recyclerView"
-            android:layout_gravity="center"/>
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_food_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"/>
+            android:textSize="12sp"/>
 
+        <TextView
+            android:id="@+id/txt_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"/>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
