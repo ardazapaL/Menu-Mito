@@ -2,11 +2,6 @@ package com.example.menumito.activity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.example.menumito.R;
 import com.example.menumito.fcm.APIService;
@@ -28,18 +21,10 @@ import com.example.menumito.fcm.MyResponse;
 import com.example.menumito.fcm.NotificationSender;
 import com.example.menumito.fcm.Token;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
-import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
@@ -52,6 +37,7 @@ import retrofit2.Response;
 
 public class SendNotif extends AppCompatActivity {
 
+    private static final String TAG = "SendNotif";
     private EditText UserTB, Title, Message;
     private Button send;
     private APIService apiService;
@@ -75,6 +61,8 @@ public class SendNotif extends AppCompatActivity {
         Message=findViewById(R.id.Message);
         send = findViewById(R.id.button);
 
+        String order_name = getIntent().getStringExtra("order_id");
+        Log.i(TAG, "ORDER NAME ==> " + order_name);
         /*send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,21 +87,21 @@ public class SendNotif extends AppCompatActivity {
                 String target = UserTB.getText().toString().trim();
                 Log.i("Target -->", target);
 
-                db.collection("user").document(target).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
+                db.collection("user").document(target).get()
+                        .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
 
-                            String token = documentSnapshot.getString("token");
-                            Log.i("TOKEN", token);
+                        String token = documentSnapshot.getString("token");
+                        Log.i("TOKEN", token);
 
-                            String title = Title.getText().toString().trim();
-                            String msg = Message.getText().toString().trim();
+                        String title = Title.getText().toString().trim();
+                        String msg = Message.getText().toString().trim();
 
-                            sendNotifications(token, title, msg);
-                        } else {
-                            Toast.makeText(SendNotif.this, "Tidak ada doc", Toast.LENGTH_SHORT);
-                        }
+                        sendNotifications(token, title, msg);
+                    } else {
+                        Toast.makeText(SendNotif.this
+                                , "Tidak ada doc"
+                                , Toast.LENGTH_SHORT);
                     }
                 });
             }
@@ -124,20 +112,17 @@ public class SendNotif extends AppCompatActivity {
     private void UpdateToken(){
 
         FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (task.isSuccessful()) {
-                            String refreshToken = task.getResult();
-                            Log.i("token ---->>", refreshToken);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String refreshToken = task.getResult();
+                        Log.i("token ---->>", refreshToken);
 
-                            Token token = new Token(refreshToken);
-                            String sToken = token.getToken();
+                        Token token = new Token(refreshToken);
+                        String sToken = token.getToken();
 
-                            Map<String, Object> newToken = new HashMap<>();
-                            newToken.put("token", sToken);
-                            db.collection("user").document(user.getUid()).set(newToken);
-                        }
+                        Map<String, Object> newToken = new HashMap<>();
+                        newToken.put("token", sToken);
+                        db.collection("user").document(user.getUid()).set(newToken);
                     }
                 });
     }

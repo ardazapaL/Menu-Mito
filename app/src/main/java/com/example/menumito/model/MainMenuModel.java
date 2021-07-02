@@ -2,12 +2,14 @@ package com.example.menumito.model;
 
 public class MainMenuModel {
 
+    private String id;
     private String name;
     private String url;
     private double priority;
 
-    public MainMenuModel(String name, String url, double priority){
+    public MainMenuModel(String id, String name, String url, double priority){
         // EMPTY CONSTRUCTOR
+        this.id = id;
         this.name = name;
         this.url = url;
         this.priority = priority;
@@ -35,5 +37,13 @@ public class MainMenuModel {
 
     public void setPriority(double priority) {
         this.priority = priority;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

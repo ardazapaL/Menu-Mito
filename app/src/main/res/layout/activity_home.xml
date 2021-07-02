@@ -29,12 +29,34 @@
         android:id="@+id/btn_logout"
         android:layout_width="@dimen/image_btn"
         android:layout_height="@dimen/image_btn"
-        android:background="@drawable/shape_round"
         android:paddingRight="2dp"
         android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintBottom_toBottomOf="@+id/tab_layout_home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tab_layout_home" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_main_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_fastfood_24"
+        android:text="Order"
+        app:icon="@drawable/ic_baseline_fastfood_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_cart"
+        android:layout_width="@dimen/image_btn"
+        android:layout_height="@dimen/image_btn"
+        android:paddingRight="2dp"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        app:layout_constraintBottom_toBottomOf="@id/tab_layout_home"
+        app:layout_constraintEnd_toEndOf="@+id/tab_layout_home"
+        app:layout_constraintTop_toTopOf="parent" />" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_home"

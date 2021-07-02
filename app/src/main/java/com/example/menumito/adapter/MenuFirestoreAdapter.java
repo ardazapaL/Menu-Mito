@@ -47,7 +47,6 @@ public class MenuFirestoreAdapter extends FirestoreRecyclerAdapter<MainMenuModel
         TextView foodImg;
         TextView foodName;
         TextView foodPriority;
-
         public MenuHolder(@NonNull View itemView) {
             super(itemView);
             foodImg = itemView.findViewById(R.id.img_food_home);

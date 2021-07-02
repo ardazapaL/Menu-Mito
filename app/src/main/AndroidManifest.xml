@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MenuMito">
-        <activity android:name=".activity.VerifyActivity"></activity>
+        <activity android:name=".activity.PayActivity"></activity>
+        <activity android:name=".activity.CheckoutActivity" />
+        <activity android:name=".activity.SingleMenuActivity" />
+        <activity android:name=".activity.VerifyActivity" />
         <activity android:name=".activity.SendNotif" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.LoginActivity" />

@@ -16,4 +16,6 @@
     <string name="get_code_prompt">Get Code</string>
     <string name="verify_prompt">Verify Now</string>
     <string name="resend_code_prompt">Resend Code</string>
+    <string name="order_prompt">Order</string>
+    <string name="checkout_prompt">Checkout</string>
 </resources>

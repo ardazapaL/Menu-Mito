@@ -13,26 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menumito.R;
-
-import java.util.ArrayList;
-
 import com.example.menumito.adapter.MainMenuAdapter;
 import com.example.menumito.adapter.MenuFirestoreAdapter;
 import com.example.menumito.model.MainMenuModel;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.example.menumito.model.OrderModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainMenuFragment extends Fragment {
 
     private static final String TAG = "MainMenuFragment";
     private ArrayList<MainMenuModel> mainMenuModels;
+    private ArrayList<OrderModel> orderModels;
     private RecyclerView recyclerView;
     private MainMenuAdapter adapter;
 
@@ -48,6 +45,8 @@ public class MainMenuFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         reference = db.collection("foods");
 
+        orderModels = new ArrayList<>();
+
         recyclerView = view.findViewById(R.id.recyclerView_home);
 
         reference.get().addOnCompleteListener(task -> {
@@ -56,19 +55,23 @@ public class MainMenuFragment extends Fragment {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     //Log.d(TAG, document.getId() + " => " + document.getData());
 
+                    String id = document.getId();
+                    //Log.i(TAG, "ID Document ==> " + id);
                     String url = document.getString("url");
                     //Log.i(TAG, "URL ==> " + url);
                     String name = document.getString("name");
                     //Log.i(TAG, "NAME ==> " + name);
                     double priority = document.getDouble("priority");
-                    Log.i(TAG, "PRIORITY ==> " + priority);
+                    //Log.i(TAG, "PRIORITY ==> " + priority);
 
-                    mainMenuModels.add(new MainMenuModel(name, url, priority));
+                    mainMenuModels.add(new MainMenuModel(id, name, url, priority));
                 }
                 //Log.i(TAG, "ARRAY LIST ==> " + mainMenuModels.toArray());
 
                 /* RECYCLERVIEW */
                 adapter = new MainMenuAdapter(mainMenuModels);
+                adapter.notifyDataSetChanged();
+
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
@@ -81,6 +84,7 @@ public class MainMenuFragment extends Fragment {
         //SetUpRecyclerView();
         return view;
     }
+
     /* METHOD WITH FIRESTORE UI */
     private void SetUpRecyclerView() {
         Query query = reference.orderBy("priority",
@@ -95,12 +99,13 @@ public class MainMenuFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterFirestore);
     }
+
     /* DATA FOR TESTING */
     private void addDataSample() {
         mainMenuModels = new ArrayList<>();
-        mainMenuModels.add(new MainMenuModel("tes","tes", 1));
-        mainMenuModels.add(new MainMenuModel("tes","tes", 1));
-        mainMenuModels.add(new MainMenuModel("tes","tes", 1));
+        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
+        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
+        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
     }
 
     @Override

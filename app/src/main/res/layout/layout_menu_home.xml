@@ -16,14 +16,12 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
+        <ImageView
             android:id="@+id/img_food_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_inside_recyclerView"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="@dimen/margin_inside_recyclerView"/>
 
         <TextView
             android:id="@+id/txt_food_home"
@@ -36,5 +34,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_prompt"/>
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/id_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
+
 </androidx.cardview.widget.CardView>
