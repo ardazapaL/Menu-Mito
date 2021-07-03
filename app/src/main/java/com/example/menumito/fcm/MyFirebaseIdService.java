@@ -18,23 +18,21 @@ import java.util.Map;
 public class MyFirebaseIdService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseIdService";
+    private FirebaseUser firebaseUser;
 
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (task.isSuccessful()) {
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
-                    String refreshToken = task.getResult();
-                    Log.i("Token ==> ", refreshToken);
+                String refreshToken = task.getResult();
+                Log.i("Token ==> ", refreshToken);
 
-                    if (firebaseUser != null){
+                if (firebaseUser != null){
 
-                        updateToken(refreshToken);
-                    }
+                    updateToken(refreshToken);
                 }
             }
         });

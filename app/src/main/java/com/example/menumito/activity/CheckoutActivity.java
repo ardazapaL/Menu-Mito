@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +21,15 @@ import com.example.menumito.fcm.MyResponse;
 import com.example.menumito.fcm.NotificationSender;
 import com.example.menumito.fcm.Token;
 import com.example.menumito.model.OrderModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -38,11 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private static final String TAG = "CheckoutActivity";
     private ArrayList<OrderModel> checkoutModels;
-    private RecyclerView recyclerView;
-    private CheckoutAdapter adapter;
-    private ExtendedFloatingActionButton fab;
 
-    private FirebaseAuth auth;
     private FirebaseFirestore db;
     private FirebaseUser user;
     private APIService apiService;
@@ -52,12 +54,12 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user = auth.getCurrentUser();
 
-        recyclerView = findViewById(R.id.recyclerView_checkout);
-        fab = findViewById(R.id.fab_checkout);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_checkout);
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_checkout);
         apiService = Client.getClient("https://fcm.googleapis.com/")
                 .create(APIService.class);
 
@@ -75,6 +77,7 @@ public class CheckoutActivity extends AppCompatActivity {
         SUBMIT ORDER TO FIREBASE
         */
         fab.setOnClickListener(v -> {
+            /* ADD ORDER TO FIREBASE */
             for (int i = 0; i < checkoutModels.size(); i++) {
                 OrderModel model = checkoutModels.get(i);
 
@@ -83,17 +86,20 @@ public class CheckoutActivity extends AppCompatActivity {
                 orderMap.put("total_order", model.getOrder_count());
 
                 db.collection("order").add(orderMap)
-                        .addOnSuccessListener(documentReference -> {
-                    Log.i(TAG, "Order added");
-                    /* NOTIF TO KITCHEN */
-                    db.collection("user").document("p1Es8inG34YYLiqgtrFU8i9TjkC3") // TARGET UID
-                            .get().addOnSuccessListener(documentSnapshot ->
-                            sendNotifications(documentSnapshot.getString("token")
-                                    ,"New Order"
-                                    ,checkoutModels.size() + " Pesanan baru" ));
-                }).addOnFailureListener(e -> Log.e(TAG,
-                        "ERROR added document ==> " + e.getMessage()));
+                        .addOnSuccessListener(documentReference -> Log.i(TAG, "Order added"));
             }
+            /* NOTIF TO KITCHEN */
+            db.collection("user").whereEqualTo("type", "waiter") // TARGET UID
+                    .get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                sendNotifications(document.getString("token")
+                                        ,"New Order"
+                                        ,checkoutModels.size() + " New Order" );
+                            }
+                        }
+                    });
             UpdateToken();
         });
 
@@ -108,7 +114,7 @@ public class CheckoutActivity extends AppCompatActivity {
         }
 
         /* ATTACH ADAPTER */
-        adapter = new CheckoutAdapter(checkoutModels);
+        CheckoutAdapter adapter = new CheckoutAdapter(checkoutModels);
         adapter.notifyDataSetChanged();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -133,6 +139,7 @@ public class CheckoutActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<MyResponse> call, Throwable t) {
 
+                Log.e(TAG, "Error ==> " + t.getMessage());
             }
         });
     }
@@ -149,7 +156,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
                         Map<String, Object> newToken = new HashMap<>();
                         newToken.put("token", sToken);
-                        db.collection("user").document(user.getUid()).set(newToken);
+                        db.collection("user").document(user.getUid()).update(newToken);
                     }
                 });
     }

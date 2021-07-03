@@ -10,7 +10,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.menumito.R;
 import com.example.menumito.adapter.TabHomeAdapter;
-import com.example.menumito.fcm.Data;
 import com.example.menumito.fragment.GalleryMenuFragment;
 import com.example.menumito.fragment.MainMenuFragment;
 import com.example.menumito.model.OrderModel;
@@ -26,16 +25,10 @@ public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
 
     static ArrayList<OrderModel> orderModels = new ArrayList<>();
-    private ArrayList<OrderModel> submit = new ArrayList<>();
 
-    private ImageButton btn_logout, btn_cart;
-    private TabHomeAdapter tabHomeAdapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ExtendedFloatingActionButton fab;
+    private ImageButton btn_cart;
 
     private FirebaseAuth auth;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        FirebaseUser user = auth.getCurrentUser();
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
@@ -53,14 +46,14 @@ public class HomeActivity extends AppCompatActivity {
 
             for (int i = 0; i < orderModels.size(); i++) {
                 OrderModel model = orderModels.get(i);
-                Log.i(TAG, "List Order ==> " + model.getId());
+                Log.i(TAG, "List Order " + i + " ==> " + model.getId());
             }
         }
 
-        viewPager = findViewById(R.id.view_pager_home);
-        fab = findViewById(R.id.fab_main_menu);
-        tabLayout = findViewById(R.id.tab_layout_home);
-        btn_logout = findViewById(R.id.btn_logout);
+        ViewPager viewPager = findViewById(R.id.view_pager_home);
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_main_menu);
+        TabLayout tabLayout = findViewById(R.id.tab_layout_home);
+        ImageButton btn_logout = findViewById(R.id.btn_logout);
         btn_cart = findViewById(R.id.btn_cart);
 
         /* TAB ICONS */
@@ -69,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
                 R.drawable.ic_baseline_fastfood_24}; // ICON SECOND MENU
 
         /* INITIALIZE VIEW PAGER AND TAB */
-        tabHomeAdapter = new TabHomeAdapter(getSupportFragmentManager());
+        TabHomeAdapter tabHomeAdapter = new TabHomeAdapter(getSupportFragmentManager());
         tabHomeAdapter.addFragment(new MainMenuFragment());
         tabHomeAdapter.addFragment(new GalleryMenuFragment());
         viewPager.setAdapter(tabHomeAdapter);
@@ -102,6 +95,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        Log.i(TAG, "UID ==> " + user.getUid());
+        //Log.i(TAG, "UID ==> " + user.getUid());
     }
 }

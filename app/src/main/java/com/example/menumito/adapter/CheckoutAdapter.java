@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menumito.R;
-import com.example.menumito.model.CheckoutModel;
 import com.example.menumito.model.OrderModel;
 import com.squareup.picasso.Picasso;
 
@@ -37,9 +36,9 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.Checko
 
     @Override
     public void onBindViewHolder(@NonNull CheckoutAdapter.CheckoutViewHolder holder, int position) {
-        Picasso.get().load(R.drawable.ic_baseline_fastfood_24).into(holder.food_img);
+        Picasso.get().load(list.get(position).getUrl_food()).into(holder.food_img);
         holder.food_id.setText(list.get(position).getId());
-        holder.food_name.setText("TES");
+        holder.food_name.setText(list.get(position).getName_food());
         holder.food_count.setText(list.get(position).getOrder_count());
     }
 

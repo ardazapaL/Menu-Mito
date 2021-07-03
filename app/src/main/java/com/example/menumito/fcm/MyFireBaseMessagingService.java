@@ -36,19 +36,17 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.drawable.ic_baseline_fastfood_24)
                         .setContentTitle(title)
                         .setContentText(message)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
+                        .setSound(defaultSoundUri);
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("Notification",
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
             manager.createNotificationChannel(channel);
-        }
+        }*/
 
         manager.notify(0, builder.build());
     }

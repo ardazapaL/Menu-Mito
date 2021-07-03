@@ -16,12 +16,20 @@ import androidx.fragment.app.Fragment;
 
 import com.example.menumito.R;
 import com.example.menumito.activity.HomeActivity;
+import com.example.menumito.activity.TypeUserActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class SignupFragment extends Fragment {
@@ -33,6 +41,8 @@ public class SignupFragment extends Fragment {
     private Intent goSignup;
 
     private FirebaseAuth auth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
 
     @Nullable
@@ -43,6 +53,8 @@ public class SignupFragment extends Fragment {
 
         /* FIREBASE */
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        user = auth.getCurrentUser();
 
         /* VARIABLE */
         editTextPhone = view.findViewById(R.id.input_phone);
@@ -51,7 +63,7 @@ public class SignupFragment extends Fragment {
         Button btnSubmit = view.findViewById(R.id.btn_submit);
 
         /* INTENT */
-        goSignup = new Intent(getActivity(), HomeActivity.class);
+        goSignup = new Intent(getActivity(), TypeUserActivity.class);
         goSignup.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -129,14 +141,8 @@ public class SignupFragment extends Fragment {
     /* LOGIN WITH PHONE CREDENTIAL */
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         auth.signInWithCredential(credential)
-                .addOnSuccessListener(authResult -> {
-                    if (auth.getCurrentUser() != null) {
-                        String phone = auth.getCurrentUser().getPhoneNumber();
-                        Log.i(TAG, "Logged in as " + phone);
-
+                .addOnCompleteListener(task -> {
                         startActivity(goSignup);
-                    }
-                })
-                .addOnFailureListener(e -> Log.e(TAG, e.getMessage()));
+            });
     }
 }

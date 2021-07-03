@@ -103,9 +103,9 @@ public class MainMenuFragment extends Fragment {
     /* DATA FOR TESTING */
     private void addDataSample() {
         mainMenuModels = new ArrayList<>();
-        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
-        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
-        mainMenuModels.add(new MainMenuModel("1","tes","tes", 1));
+        mainMenuModels.add(new MainMenuModel("1","test","test", 1));
+        mainMenuModels.add(new MainMenuModel("2","test","test", 1));
+        mainMenuModels.add(new MainMenuModel("3","test","test", 1));
     }
 
     @Override
